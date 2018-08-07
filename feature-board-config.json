@@ -1,0 +1,55 @@
+{
+  "page": {
+    "link": "https://videoconverter.wondershare.com/convert-mp4/mp4-converter.html",
+    "siteId": 106,
+    "activityId": 24
+  },
+  "game": {
+    "size": 6,
+    "icon": "./asset/icon-00.svg"
+  },
+  "feats": [{
+    "icon": "./asset/icon-01.svg",
+    "label": "Convert Video"
+  },{
+    "icon": "./asset/icon-02.svg",
+    "label": "Burn DVD"
+  },{
+    "icon": "./asset/icon-03.svg",
+    "label": "Download Video"
+  },{
+    "icon": "./asset/icon-04.svg",
+    "label": "Record Video"
+  },{
+    "icon": "./asset/icon-05.svg",
+    "label": "Trim Video"
+  },{
+    "icon": "./asset/icon-06.svg",
+    "label": "Compress Video"
+  },{
+    "icon": "./asset/icon-07.svg",
+    "label": "Transfer Video to Devices"
+  },{
+    "icon": "./asset/icon-08.svg",
+    "label": "Crop Video"
+  },{
+    "icon": "./asset/icon-09.svg",
+    "label": "Add Subtitles"
+  },{
+    "icon": "./asset/icon-10.svg",
+    "label": "Merge Videos"
+  }],
+  "label": {
+    "product": "Wondershare Video Converter Ultimate",
+    "submitBefore": "Submit your Email to get infomred when you win the Amazon card.",
+    "submitAfter": "<div>We will inform you before <span>August 30</span> if you have win the Amazon card. And you have win the <span>$5 coupon code</span> for Wondershare Video Converter Ultimate.</div><div><strong>MENGUESS</strong></div>"
+  },
+  "links": [{
+    "url": "https://videoconverter.wondershare.com/buy/video-converter-ultimate.html",
+    "label": "Buy Windows Version",
+    "type": "button"
+  },{
+    "url": "https://videoconverter.wondershare.com/buy/mac-video-converter-ultimate.html",
+    "label": "Buy Mac Version"
+  }]
+}

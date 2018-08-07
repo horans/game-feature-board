@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="./vendor/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="./feature-board.css">
+    <link rel="stylesheet" href="./asset/loading.css.animation.css">
+    <link rel="shortcut icon" href="./asset/favicon.ico" />
+    <title>Feature Board</title>
+  </head>
+  <body>
+    <!--
+    /*****************************************************
+    *  project: game feature board                       *
+    *  description: iframe to be embedded                *
+    *  author: horans@gmail.com                          *
+    *  url: https://github.com/horans/game-feature-board *
+    *  update: 180807                                    *
+    *****************************************************/
+    -->
+
+    <main id="app" class="gfb-app" :class="{ 'ready': state.init, 'loading': state.wait, 'running': game.running, 'result': state.result, 'submit': state.submit }">
+      <section class="gfb-main">
+        <div class="gfb-container" v-if="config">
+          <div class="gfb-board">
+            <div class="gfb-action center">
+              <div class="gfb-label">
+                <span class="gfb-timer" v-if="game.running"><samp>{{ timer }}s</samp></span>
+                <span class="gfb-start" v-else @click="startGame">{{ again ? 'Restart' : 'Start Game'  }}</span>
+              </div>
+              <div class="gfb-label" v-if="!game.running && again">
+                <span class="gfb-start" @click="hardGame">{{ game.hard ? 'Normal' : 'Hard' }}</span>
+              </div>
+            </div>
+            <div class="gfb-cells-wrapper-outer" @click.self="startGame">
+              <div class="gfb-cells-wrapper-inner">
+                <ul class="gfb-cells transition" v-if="game.cells.length > 0">
+                  <li :class="{ 'chosen': item.chosen }" v-for="(item, index) in game.cells" @click="chooseCell(index)" :ref="'cell' + index" :style="'width:' + percent + '%; font-size:' + percent + 'px'">
+                    <div class="gfb-cells-item">
+                      <i class="transition" v-html="item.index === -1 ? config.game.svg : config.feats[item.index].svg"></i>
+                    </div>
+                  </li>
+                </ul>
+                <div class="gfb-result transition">
+                  <div class="gfb-image"></div>
+                  <div class="gfb-text center" v-if="config.label && best">
+                    <template v-if="state.submit">
+                      <h2 class="gfb-heading">Thanks for Playing the Game!</h2>
+                      <div class="gfb-desc" v-html="config.label.submitAfter"></div>
+                      </template>
+                    <template v-else>
+                      <h2 class="gfb-heading">Excellent! <br>Your Best Score Is <samp>{{ formatTime(best.time) }}s</samp>!</h2>
+                      <div class="gfb-desc" v-html="config.label.submitBefore"></div>
+                    </template>
+                  </div>
+                  <ul class="gfb-links center" v-if="state.submit">
+                    <li v-for="item in config.links">
+                      <a :href="item.url" target="_parent">{{ item.label }}</a>
+                    </li>
+                  </ul>
+                  <div class="gfb-submit" :class="{ 'error': api.error.msg }" v-else>
+                    <form class="gfb-form" @submit.prevent="apiAction('addScore')">
+                      <button type="submit" class="center">Submit</button>
+                      <input type="email" placeholder="Your Email Address" v-model="api.types.addScore.data.user_email" required :readonly="state.email" />
+                    </form>
+                    <div class="gfb-note">
+                      <template v-if="api.error.msg"><strong>* Error:</strong> {{ api.error.msg }}</template>
+                      <template v-else><strong>* Note:</strong> All the information you submit will be used on this page only.</template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="gfb-hints">
+            <div class="gfb-title center" v-if="config.label">
+              <template v-if="state.result"><br />Your Scores</template>
+              <template v-else>Features of {{ config.label.product }}</template>
+            </div>
+            <ul class="gfb-feats" v-if="!state.result && config.feats">
+              <li :class="{ 'active': item.active }" v-for="item in config.feats">
+                <i v-html="item.svg"></i>
+                <span>{{ item.label }}</span>
+              </li>
+            </ul>
+            <ul class="gfb-feats gfb-scores" v-if="state.result && again">
+              <li v-for="(item, index) in game.scores" :class="{ 'best' : index === (best.try - 1) && game.scores.length > 1 }">
+                <pre>&num;{{ (index + 1) }}</pre>
+                <samp>{{ formatTime(item.time) }}s</samp>
+                <small v-if="game.scores.length > 1">
+                  <em v-if="index === (best.try - 1)">Best</em>
+                  <em v-if="item.try === game.scores.length">Last</em>
+                  <em v-if="item.level === 'hard'">Hard</em>
+                </small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <aside class="gfb-loading transition">
+        <div class="gfb-loading-item transition">
+          <div class="gfb-loading-line"></div>
+          <div class="gfb-loading-line"></div>
+          <div class="gfb-loading-line"></div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- vendor -->
+    <script src="./vendor/vue.min.js"></script>
+    <script src="./vendor/axios.min.js"></script>
+    <script src="./vendor/lodash.min.js"></script>
+    <script src="./vendor/vue-axios.min.js"></script>
+    <script src="./vendor/webfontloader.js"></script>
+    <script src="./vendor/es6-promise.auto.min.js"></script>
+    <!-- inpage -->
+    <script src="./feature-board.js"></script>
+  </body>
+</html>
