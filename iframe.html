@@ -66,7 +66,7 @@
                     </form>
                     <div class="gfb-note">
                       <template v-if="api.error.msg"><strong>* Error:</strong> {{ api.error.msg }}</template>
-                      <template v-else><strong>* Note:</strong> All the information you submit will be used on this page only.</template>
+                      <template v-else><strong>* Note:</strong> Your email address will be only used for the award notification.</template>
                     </div>
                   </div>
                 </div>
@@ -82,6 +82,7 @@
               <li :class="{ 'active': item.active }" v-for="item in config.feats">
                 <i v-html="item.svg"></i>
                 <span>{{ item.label }}</span>
+                <a v-if="item.url" target="_parent" :href="item.url"></a>
               </li>
             </ul>
             <ul class="gfb-feats gfb-scores" v-if="state.result && again">

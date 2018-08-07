@@ -8,7 +8,9 @@ It will calculate how much time take user to click on all the right icons.
 * Result list.
 * Game tips.
 
-## Install
+## Basic
+
+### Install
 
 Upload everything to your server, eg.:
 
@@ -16,7 +18,7 @@ Upload everything to your server, eg.:
 //sample.com/gfb/
 ```
 
-## Usage
+### Usage
 
 Embed `iframe.html` into your page, eg.:
 
@@ -24,7 +26,9 @@ Embed `iframe.html` into your page, eg.:
 <iframe src="//sample.com/gfb/iframe.html" frameBorder="0" width="830" height="640"></iframe>
 ```
 
-## Setup
+## Advanced
+
+### Setup
 
 GFB uses config file to setup everything.
 Look into the default `feature-board-config.json` for details.
@@ -34,14 +38,14 @@ You can also pass your own config file to `iframe`, eg.:
 <iframe src="//sample.com/gfb/iframe.html?config=my-features.json"></iframe>
 ```
 
-## Icons
+### Icons
 
 Icons have to be `svg` with flatten `path` to change color.
 
-## Submit
+### Submit
 
 It's a dummy json for preview only.
-Setup your own api to submit results.
+Setup your own API to submit results.
 
 ## Extra
 
