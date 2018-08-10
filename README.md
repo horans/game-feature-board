@@ -31,7 +31,7 @@ Embed `iframe.html` into your page, eg.:
 ### Setup
 
 GFB uses config file to setup everything.
-Look into the default `feature-board-config.json` for details.
+Look into the default `config.json` in `asset` folder for details.
 You can also pass your own config file to `iframe`, eg.:
 
 ```html
@@ -42,10 +42,10 @@ You can also pass your own config file to `iframe`, eg.:
 
 Icons have to be `svg` with flatten `path` to change color.
 
-### Submit
+### Scores
 
-It's a dummy json for preview only.
-Setup your own API to submit results.
+We use dummy `json`s for preview only.
+Setup your own API to add/get results.
 
 ## Extra
 
@@ -65,6 +65,10 @@ Setup your own API to submit results.
 * JavaScript: [standard](https://github.com/standard/standard)
 
 ### Change Log
+
+__180810__
+
+* add top scores
 
 __180807__
 

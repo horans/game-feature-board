@@ -3,7 +3,7 @@
 *  description: inpage functions                     *
 *  author: horans@gmail.com                          *
 *  url: https://github.com/horans/game-feature-board *
-*  update: 180807                                    *
+*  update: 180810                                    *
 *****************************************************/
 /* global _, Vue, WebFont */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "gfb" }] */
@@ -39,12 +39,14 @@ var gfb = new Vue({
         end: 0
       },
       cells: [],
-      scores: []
+      scores: [],
+      tops: []
     },
     config: {},
     api: {
       // base: 'https://i.wondershare.com/api/v1/activity/',
-      base: './asset/submit.json?',
+      // base: 'https://api.wondershare.com/api/v1/activity/',
+      base: './asset/dummy.json?',
       error: {
         default: 'Something wrong with network, please try again!',
         msg: ''
@@ -52,12 +54,12 @@ var gfb = new Vue({
       types: {
         getConfig: {
           path: '',
-          external: true,
+          internal: true,
           type: 'GET'
         },
         getSVG: {
           path: '',
-          external: true,
+          internal: true,
           type: 'GET'
         },
         addScore: {
@@ -66,8 +68,20 @@ var gfb = new Vue({
           data: {
             site_id: null,
             page: '',
+            api_env: 'uat',
             user_email: '',
-            extension: {}
+            extension: {},
+            extension_key: null
+          }
+        },
+        getScores: {
+          path: '/extension',
+          type: 'GET',
+          data: {
+            site_id: null,
+            limit: 20,
+            key: 2,
+            param: 'try,level'
           }
         }
       }
@@ -78,7 +92,7 @@ var gfb = new Vue({
     json: function () {
       var l = window.location.href
       var p = '?config='
-      var d = 'feature-board-config.json'
+      var d = './asset/config.json'
       var i = l.indexOf(p)
       return i === -1 ? d : l.substr(i + p.length)
     },
@@ -187,14 +201,16 @@ var gfb = new Vue({
     // end the current round
     endGame: function () {
       this.game.time.end = Date.now()
-      this.game.scores.push({
+      this.game.scores.unshift({
         try: this.game.scores.length + 1,
         time: this.game.time.end - this.game.time.start,
         level: this.game.hard ? 'hard' : 'normal'
       })
       this.api.types.addScore.data.extension = this.best
+      this.api.types.addScore.data.extension_key = this.best.time
       this.game.running = false
       this.state.result = true
+      this.apiAction('getScores')
       this.resetGame()
     },
     // switch game level
@@ -217,7 +233,7 @@ var gfb = new Vue({
     // main action with apis
     apiAction: function (type, data) {
       var a = this.api.types[type]
-      var p = (a.external ? '' : this.api.base) + a.path
+      var p = (a.internal ? '' : this.api.base) + a.path
       var d = a.data
       var t = this
       switch (type) {
@@ -226,7 +242,7 @@ var gfb = new Vue({
           p = data.link
           break
         case 'addScore':
-          d.extension = JSON.stringify(d.extension)
+          // d.extension = JSON.stringify(d.extension)
           break
         default: break
       }
@@ -236,7 +252,8 @@ var gfb = new Vue({
         this.axios({
           url: p,
           method: a.type,
-          data: d
+          data: d,
+          params: a.type === 'GET' ? d : null
         }).then(function (res) {
           var r = res.data
           t.api.error.msg = ''
@@ -269,9 +286,14 @@ var gfb = new Vue({
                 t.state.done = true
                 t.state.submit = true
                 t.state.email = true
+                t.apiAction('getScores')
               } else {
                 t.api.error.msg = r.msg
               }
+              break
+            case 'getScores':
+              t.state.done = true
+              if (r.code === 200) t.game.tops = r.data.list
               break
             default: break
           }
@@ -291,6 +313,8 @@ var gfb = new Vue({
       this.api.types.addScore.path = this.config.page.activityId + this.api.types.addScore.path
       this.api.types.addScore.data.site_id = _.clone(this.config.page.siteId)
       this.api.types.addScore.data.page = _.clone(this.config.page.link)
+      this.api.types.getScores.path = this.config.page.activityId + this.api.types.getScores.path
+      this.api.types.getScores.data.site_id = _.clone(this.config.page.siteId)
 
       // insert icon svg
       var t = this

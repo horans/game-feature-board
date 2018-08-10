@@ -3,7 +3,7 @@
 *  description: inpage styles                        *
 *  author: horans@gmail.com                          *
 *  url: https://github.com/horans/game-feature-board *
-*  update: 180806                                    *
+*  update: 180809                                    *
 *****************************************************/
 /* common */
 /* csslint ignore: start */
@@ -24,6 +24,7 @@ ul { list-style: none; margin: 0; margin-block-end: 0; margin-block-start: 0; pa
 .ready .gfb-loading-line { animation: none; }
 .ready.loading .gfb-loading { opacity: .3; z-index: 2; } /* csslint allow: adjoining-classes */
 /* board */
+.gfb-board { float: left; width: 540px; }
 .gfb-action { margin-bottom: 10px; }
 .gfb-label { background-color: var(--green-light); background-image: linear-gradient(0deg, var(--green-dark) 0%, var(--green-light) 100%); border-radius: 30px; box-shadow: inset 0 -5px 0 0 var(--green-shadow); color: var(--text-white); display: inline-block; font-size: 1.5rem; font-weight: 600; margin: 0 10px; padding: 12px 30px 18px; position: relative; } /* csslint allow: known-properties */
 .gfb-label::before, .gfb-label::after { background-color: var(--green-shadow); bottom: -10px; content: ""; height: 10px; position: absolute; width: 5px; } /* csslint allow: known-properties */
@@ -57,7 +58,7 @@ ul { list-style: none; margin: 0; margin-block-end: 0; margin-block-start: 0; pa
 .gfb-heading samp { color: var(--text-white); } /* csslint allow: known-properties */
 .gfb-desc { font-size: 1.125rem; font-weight: 600; }
 .gfb-desc span { color: var(--text-yellow); } /* csslint allow: known-properties */
-.gfb-desc strong { display: inline-block; font-size: 1.5rem; margin-top: 6.977%; }
+.gfb-desc strong { display: inline-block; font-size: 1.75rem; margin-top: 6.977%; }
 .gfb-links { margin-top: 7.143%; }
 .gfb-links li { display: inline-block; margin: 0 6px; }
 .gfb-links a { color: var(--text-white); text-decoration: underline; } /* csslint allow: known-properties */
@@ -73,31 +74,36 @@ ul { list-style: none; margin: 0; margin-block-end: 0; margin-block-start: 0; pa
 .error .gfb-note { color: var(--text-yellow); } /* csslint allow: known-properties */
 .result .gfb-result { opacity: 1; z-index: 2; }
 /* hints */
+.gfb-hints { float: left; margin-left: 30px; position: relative; width: 230px; }
 .gfb-title { margin: 20px 0 10px; }
-.gfb-feats { border: solid 1px var(--border); border-radius: 20px; padding: 4.5px 15px; } /* csslint allow: known-properties */
+.gfb-feats { border: solid 1px var(--border); border-radius: 20px; height: 540px; overflow-y: auto; overflow-y: overlay; padding: 4.5px 15px; } /* csslint allow: known-properties, box-model */
 .gfb-feats li { border-top: dashed 1px var(--border); font-weight: 600; padding: 4.5px 0; position: relative; } /* csslint allow: known-properties */
 .gfb-feats li:first-of-type { border: none; }
 .gfb-feats i, .gfb-feats span { display: inline-block; vertical-align: middle; }
 .gfb-feats i { height: 43px; width: 43px; }
 .gfb-feats svg { height: 100%; width: 100%; }
 .gfb-feats path { fill: var(--icon-inactive) !important; } /* csslint allow: known-properties, important */
-.gfb-feats span { cursor: default; padding-left: 12px; }
+.gfb-feats span { cursor: default; padding-left: 12px; width: 150px; } /* csslint allow: box-model */
 .gfb-feats a { height: 100%; left: 0; position: absolute; top: 0; width: 100%; }
 .gfb-feats .active { color: var(--icon-active); } /* csslint allow: known-properties */
 .gfb-feats .active path { fill: var(--icon-active) !important; } /* csslint allow: known-properties, important */
+.gfb-scores { height: 235px; }
+.gfb-scores li { padding: 10px; }
 .gfb-scores pre { display: inline; font-size: .875rem; opacity: .8; }
+.gfb-scores samp { margin: 0 .5rem; }
 .gfb-scores small { opacity: .6; }
 .gfb-scores em:not(:last-of-type):after { content: "\0002C"; }
+.gfb-scores .dot { vertical-align: top; }
 .gfb-scores .best samp { color: var(--icon-active); } /* csslint allow: known-properties */
 .running .gfb-feats a { z-index: -1; }
 .gfb-app:not(.running) .gfb-feats li:hover span { color: var(--icon-active); } /* csslint allow: known-properties */
 .gfb-app:not(.running) .gfb-feats li:hover path { fill: var(--icon-active) !important;; } /* csslint allow: known-properties, important */
-/* desktop */
-@media(min-width: 830px) {
-.gfb-board { float: left; width: 540px; }
-.gfb-hints { float: left; margin-left: 30px; width: 230px; }
-.gfb-feats span { width: 150px; }
-}
+.gfb-scores-wrapper { background-color: var(--background); height: 100%; opacity: 0; position: absolute; top: 0; width: 100%; z-index: -1; } /* csslint allow: known-properties */
+.result .gfb-scores-wrapper  { opacity: 1; z-index: 2; }
+/* scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background-color: var(--border); border-radius: 2px; } /* csslint allow: known-properties */
+::-webkit-scrollbar-button { height: 20px; }
 /* mobile */
 @media(max-width: 829px) {
 .gfb-result { padding: 8%; }

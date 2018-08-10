@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="./vendor/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="./feature-board.css">
     <link rel="stylesheet" href="./asset/loading.css.animation.css">
+    <link rel="stylesheet" href="./feature-board.css">
     <link rel="shortcut icon" href="./asset/favicon.ico" />
     <title>Feature Board</title>
   </head>
@@ -16,7 +16,7 @@
     *  description: iframe to be embedded                *
     *  author: horans@gmail.com                          *
     *  url: https://github.com/horans/game-feature-board *
-    *  update: 180807                                    *
+    *  update: 180810                                    *
     *****************************************************/
     -->
 
@@ -74,28 +74,39 @@
             </div>
           </div>
           <div class="gfb-hints">
-            <div class="gfb-title center" v-if="config.label">
-              <template v-if="state.result"><br />Your Scores</template>
-              <template v-else>Features of {{ config.label.product }}</template>
+            <div class="gfb-feats-wrapper">
+              <div class="gfb-title center" v-if="config.label">Features of {{ config.label.product }}</div>
+              <ul class="gfb-feats">
+                <li :class="{ 'active': item.active }" v-for="item in config.feats">
+                  <i v-html="item.svg"></i>
+                  <span>{{ item.label }}</span>
+                  <a v-if="item.url" target="_parent" :href="item.url"></a>
+                </li>
+              </ul>
             </div>
-            <ul class="gfb-feats" v-if="!state.result && config.feats">
-              <li :class="{ 'active': item.active }" v-for="item in config.feats">
-                <i v-html="item.svg"></i>
-                <span>{{ item.label }}</span>
-                <a v-if="item.url" target="_parent" :href="item.url"></a>
-              </li>
-            </ul>
-            <ul class="gfb-feats gfb-scores" v-if="state.result && again">
-              <li v-for="(item, index) in game.scores" :class="{ 'best' : index === (best.try - 1) && game.scores.length > 1 }">
-                <pre>&num;{{ (index + 1) }}</pre>
-                <samp>{{ formatTime(item.time) }}s</samp>
-                <small v-if="game.scores.length > 1">
-                  <em v-if="index === (best.try - 1)">Best</em>
-                  <em v-if="item.try === game.scores.length">Last</em>
-                  <em v-if="item.level === 'hard'">Hard</em>
-                </small>
-              </li>
-            </ul>
+            <div class="gfb-scores-wrapper">
+              <div class="gfb-title center"><br />Your Scores</div>
+              <ul class="gfb-feats gfb-scores">
+                <li v-for="(item, index) in game.scores" :class="{ 'best' : (game.scores.length - index) === best.try && game.scores.length > 1 }">
+                  <pre class="dot"> &middot;</pre>
+                  <samp>{{ formatTime(item.time) }}s</samp>
+                  <small v-if="game.scores.length > 1">
+                    <em v-if="index === 0">Last</em>
+                    <em v-if="item.level === 'hard'">Hard</em>
+                  </small>
+                </li>
+              </ul>
+              <div class="gfb-title center"><br />Top Scores</div>
+              <ul class="gfb-feats gfb-scores">
+                <li v-for="(item, index) in game.tops">
+                  <pre>&num;{{ (index + 1) }}</pre>
+                  <samp>{{ formatTime(item.extension_key) }}s</samp>
+                  <small>
+                    <em v-if="item.level === 'hard'">Hard</em>
+                  </small>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
