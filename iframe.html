@@ -16,7 +16,7 @@
     *  description: iframe to be embedded                *
     *  author: horans@gmail.com                          *
     *  url: https://github.com/horans/game-feature-board *
-    *  update: 180810                                    *
+    *  update: 180811                                    *
     *****************************************************/
     -->
 
@@ -104,6 +104,7 @@
                   <small>
                     <em v-if="item.level === 'hard'">Hard</em>
                   </small>
+                  <figure v-if="item.locale" :style="showFlag(item.locale)"></figure>
                 </li>
               </ul>
             </div>

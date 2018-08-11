@@ -5,24 +5,30 @@
     "page_total": 1,
     "list": [{
       "extension_key": 4392,
-      "try": 1,
-      "level": "normal"
+      "level": "normal",
+      "locale": "FR",
+      "try": 1
     },{
       "extension_key": 4402,
-      "try": 3,
-      "level": "normal"
+      "level": "normal",
+      "locale": "US",
+      "try": 3
     },{
       "extension_key": 4613,
-      "try": 7,
-      "level": "hard"
+      "level": "hard",
+      "locale": "FR",
+      "try": 7
     },{
       "extension_key": 5023,
-      "try": 4,
-      "level": "normal"
+      "level": "normal",
+      "locale": "HK",
+      "try": 4
     },{
       "extension_key": 5111,
-      "try": 2,
-      "level": "hard"
-    }]
+      "level": "hard",
+      "locale": null,
+      "try": 2
+    }],
+    "country": "CN"
   }
 }

@@ -3,7 +3,7 @@
 *  description: inpage functions                     *
 *  author: horans@gmail.com                          *
 *  url: https://github.com/horans/game-feature-board *
-*  update: 180810                                    *
+*  update: 180811                                    *
 *****************************************************/
 /* global _, Vue, WebFont */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "gfb" }] */
@@ -30,6 +30,7 @@ var gfb = new Vue({
       submit: false,
       email: false
     },
+    locale: null,
     game: {
       running: false,
       hard: false,
@@ -81,8 +82,13 @@ var gfb = new Vue({
             site_id: null,
             limit: 20,
             key: 2,
-            param: 'try,level'
+            param: 'level,locale,try'
           }
+        },
+        getLocale: {
+          path: 'geoip/country',
+          general: true,
+          type: 'GET'
         }
       }
     }
@@ -204,7 +210,8 @@ var gfb = new Vue({
       this.game.scores.unshift({
         try: this.game.scores.length + 1,
         time: this.game.time.end - this.game.time.start,
-        level: this.game.hard ? 'hard' : 'normal'
+        level: this.game.hard ? 'hard' : 'normal',
+        locale: _.clone(this.locale)
       })
       this.api.types.addScore.data.extension = this.best
       this.api.types.addScore.data.extension_key = this.best.time
@@ -233,7 +240,7 @@ var gfb = new Vue({
     // main action with apis
     apiAction: function (type, data) {
       var a = this.api.types[type]
-      var p = (a.internal ? '' : this.api.base) + a.path
+      var p = (a.internal ? '' : (a.general ? this.api.base.replace('activity/', '') : this.api.base)) + a.path
       var d = a.data
       var t = this
       switch (type) {
@@ -241,9 +248,11 @@ var gfb = new Vue({
         case 'getSVG':
           p = data.link
           break
-        case 'addScore':
-          // d.extension = JSON.stringify(d.extension)
+        case 'addScore': break
+        case 'getScores':
+          d.ts = Date.now()
           break
+        case 'getLocale': break
         default: break
       }
       if (a) {
@@ -295,6 +304,10 @@ var gfb = new Vue({
               t.state.done = true
               if (r.code === 200) t.game.tops = r.data.list
               break
+            case 'getLocale':
+              t.state.done = true
+              if (r.code === 200) t.locale = r.data.country
+              break
             default: break
           }
         }).catch(function (err) {
@@ -322,6 +335,10 @@ var gfb = new Vue({
       _.each(t.config.feats, function (o, i) {
         t.apiAction('getSVG', { index: i, link: o.icon })
       })
+    },
+    // display flag as background according to locale
+    showFlag: function (loc) {
+      if (loc) return 'background-image: url(./vendor/flag-icon-css/' + loc.toLowerCase() + '.svg)'
     }
   },
   created: function () {
@@ -329,6 +346,7 @@ var gfb = new Vue({
     bus.$on('gfb.font', function () {
       t.initGame()
     })
+    this.apiAction('getLocale')
   },
   watch: {
     // update timer

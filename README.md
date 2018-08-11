@@ -42,10 +42,10 @@ You can also pass your own config file to `iframe`, eg.:
 
 Icons have to be `svg` with flatten `path` to change color.
 
-### Scores
+### APIs
 
 We use dummy `json`s for preview only.
-Setup your own API to add/get results.
+Setup your own API to add/get results, or get GEOIP country code.
 
 ## Extra
 
@@ -54,6 +54,7 @@ Setup your own API to add/get results.
 * [axios](https://github.com/axios/axios)
 * [bootstrap reboot](https://github.com/twbs/bootstrap)
 * [ES6-Promise](https://github.com/stefanpenner/es6-promise)
+* [flag-icon-css](https://github.com/lipis/flag-icon-css)
 * [Lodash](https://github.com/lodash/lodash)
 * [Vue](https://github.com/vuejs/vue)
 * [Web Font Loader](https://github.com/typekit/webfontloader)
@@ -65,6 +66,10 @@ Setup your own API to add/get results.
 * JavaScript: [standard](https://github.com/standard/standard)
 
 ### Change Log
+
+__180811__
+
+* add flags
 
 __180810__
 
