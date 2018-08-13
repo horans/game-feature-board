@@ -3,7 +3,7 @@
 *  description: inpage functions                     *
 *  author: horans@gmail.com                          *
 *  url: https://github.com/horans/game-feature-board *
-*  update: 180811                                    *
+*  update: 180813                                    *
 *****************************************************/
 /* global _, Vue, WebFont */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "gfb" }] */
@@ -82,6 +82,7 @@ var gfb = new Vue({
             site_id: null,
             limit: 20,
             key: 2,
+            unique_key: 'email',
             param: 'level,locale,try'
           }
         },
@@ -213,6 +214,7 @@ var gfb = new Vue({
         level: this.game.hard ? 'hard' : 'normal',
         locale: _.clone(this.locale)
       })
+      this.notifyParent('end', this.game.scores[0])
       this.api.types.addScore.data.extension = this.best
       this.api.types.addScore.data.extension_key = this.best.time
       this.game.running = false
@@ -295,6 +297,7 @@ var gfb = new Vue({
                 t.state.done = true
                 t.state.submit = true
                 t.state.email = true
+                t.notifyParent('submit', d)
                 t.apiAction('getScores')
               } else {
                 t.api.error.msg = r.msg
@@ -339,6 +342,16 @@ var gfb = new Vue({
     // display flag as background according to locale
     showFlag: function (loc) {
       if (loc) return 'background-image: url(./vendor/flag-icon-css/' + loc.toLowerCase() + '.svg)'
+    },
+    // notify parent window
+    notifyParent: function (act, data) {
+      if (act && data) {
+        window.parent.postMessage({
+          from: 'gfb',
+          action: act,
+          data: data
+        }, '*')
+      }
     }
   },
   created: function () {

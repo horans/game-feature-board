@@ -7,6 +7,7 @@ It will calculate how much time take user to click on all the right icons.
 * Level select.
 * Result list.
 * Game tips.
+* notify parent.
 
 ## Basic
 
@@ -23,7 +24,7 @@ Upload everything to your server, eg.:
 Embed `iframe.html` into your page, eg.:
 
 ```html
-<iframe src="//sample.com/gfb/iframe.html" frameBorder="0" width="830" height="640"></iframe>
+<iframe src="//sample.com/gfb/iframe.html" frameborder="0" width="835" height="650"></iframe>
 ```
 
 ## Advanced
@@ -44,8 +45,28 @@ Icons have to be `svg` with flatten `path` to change color.
 
 ### APIs
 
-We use dummy `json`s for preview only.
+GFB uses dummy `json`s for preview only.
 Setup your own API to add/get results, or get GEOIP country code.
+
+### Notices
+
+GFB will notify parent window by [`window.postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage),
+when each round of game is finished,
+and when user submit their score.
+
+```javascript
+// with jquery
+$(window).on('message', function (e) {
+  console.log(e.originalEvent.data)
+})
+```
+
+```javascript
+// with native
+window.addEventListener('message', function(e) {
+  console.log(e.data)
+}, false)
+```
 
 ## Extra
 
@@ -66,6 +87,10 @@ Setup your own API to add/get results, or get GEOIP country code.
 * JavaScript: [standard](https://github.com/standard/standard)
 
 ### Change Log
+
+__180813__
+
+* notify parent window
 
 __180811__
 
