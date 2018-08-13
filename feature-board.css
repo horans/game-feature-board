@@ -3,7 +3,7 @@
 *  description: inpage styles                        *
 *  author: horans@gmail.com                          *
 *  url: https://github.com/horans/game-feature-board *
-*  update: 180811                                    *
+*  update: 180813                                    *
 *****************************************************/
 /* common */
 /* csslint ignore: start */
@@ -24,7 +24,7 @@ ul { list-style: none; margin: 0; margin-block-end: 0; margin-block-start: 0; pa
 .ready .gfb-loading-line { animation: none; }
 .ready.loading .gfb-loading { opacity: .3; z-index: 2; } /* csslint allow: adjoining-classes */
 /* board */
-.gfb-board { float: left; width: 540px; }
+.gfb-board { float: left; max-width: 100%; width: 540px; }
 .gfb-action { margin-bottom: 10px; }
 .gfb-label { background-color: var(--green-light); background-image: linear-gradient(0deg, var(--green-dark) 0%, var(--green-light) 100%); border-radius: 30px; box-shadow: inset 0 -5px 0 0 var(--green-shadow); color: var(--text-white); display: inline-block; font-size: 1.5rem; font-weight: 600; margin: 0 10px; padding: 12px 30px 18px; position: relative; } /* csslint allow: known-properties */
 .gfb-label::before, .gfb-label::after { background-color: var(--green-shadow); bottom: -10px; content: ""; height: 10px; position: absolute; width: 5px; } /* csslint allow: known-properties */
