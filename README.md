@@ -7,7 +7,7 @@ It will calculate how much time take user to click on all the right icons.
 * Level select.
 * Result list.
 * Game tips.
-* notify parent.
+* notify parent window.
 
 ## Basic
 
@@ -78,6 +78,7 @@ window.addEventListener('message', function(e) {
 * [flag-icon-css](https://github.com/lipis/flag-icon-css)
 * [Lodash](https://github.com/lodash/lodash)
 * [Vue](https://github.com/vuejs/vue)
+* [vue-axios](https://github.com/imcvampire/vue-axios)
 * [Web Font Loader](https://github.com/typekit/webfontloader)
 
 ### Linter
@@ -88,18 +89,18 @@ window.addEventListener('message', function(e) {
 
 ### Change Log
 
-~~text
-__210311__
-update vendors
+```text
+210311
+# update vendors
 
-__180813__
-notify parent window
+180813
++ notify parent window
 
-__180811__
-add flags
+180811
++ add flags
 
-__180810__
-add top scores
+180810
++ add top scores
 
-__180807__
-initial release
+180807
++ initial release
