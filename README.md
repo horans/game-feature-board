@@ -88,18 +88,18 @@ window.addEventListener('message', function(e) {
 
 ### Change Log
 
-__180813__
+~~text
+__210311__
+update vendors
 
-* notify parent window
+__180813__
+notify parent window
 
 __180811__
-
-* add flags
+add flags
 
 __180810__
-
-* add top scores
+add top scores
 
 __180807__
-
-* initial release
+initial release

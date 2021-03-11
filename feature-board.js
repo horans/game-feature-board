@@ -3,10 +3,11 @@
 *  description: inpage functions                     *
 *  author: horans@gmail.com                          *
 *  url: https://github.com/horans/game-feature-board *
-*  update: 180813                                    *
+*  update: 210311                                    *
 *****************************************************/
 /* global _, Vue, WebFont */
 /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "gfb" }] */
+/* eslint no-var: 0 */
 /* bus */
 var bus = new Vue()
 
